@@ -11,20 +11,84 @@
 </html>
 <script>
 
-// Decalre object
+// 1 - Decalre object
 
 const obj = {};
 const obj1 = Object();
 const obj2 = new Object();
 
-// Get an object property
+
+
+// 2 - Get an object property
 
 obj.name;
 obj['name'];
 
-// Carrefull with thoses :
+
+
+// !! Carrefull with thoses :
 
 let userName = obj.name;
 userName = 'Yusuf' // We are chaging the oject reference into the heap
+
+function doSomething(arg) {
+    // Does something
+}
+
+doSomething(obj) // Could also change our object reference
+
+
+
+// 3 - Simplifying the syntax
+
+const x1 = {
+    userName: userName,
+}
+
+// We could do better with :
+const x2 = {
+    userName
+}
+
+const property = "name"
+
+const x3 = {
+    [property]: 'Tang'
+}
+
+const x4 = {
+    [`user${property}`]: 'Tang01'
+}
+
+
+
+// 4 - Destructuring
+
+const object1 = {
+    name: 'Sir Elen',
+    age: 73
+}
+
+const { name, age } = object1;
+
+// Renaming
+const { name: nom, age: amr } = object1;
+
+// Giving default values
+const { nombre = 'Timur', anos = 33 } = object1;
+
+// Both
+const { name: nome = 'Sergio', age: aggio = 33 } = object1;
+
+
+
+// 5 - Rest / Spread operator
+
+const newUser = {kounia: 'Khan', surname: 'Gazi', age: 43};
+
+const { kounia, ...rest } = newUser
+
+// ...rest represents object with the rest of the properties : { surname: 'Gazi', age: 43 }
+
 
 </script>
