@@ -82,7 +82,7 @@ const { name: nome = 'Sergio', age: aggio = 33 } = object1;
 
 
 
-// 5 - Rest / Spread operator
+// 5 - Spread operator
 
 const newUser = {kounia: 'Khan', surname: 'Gazi', age: 43};
 
@@ -90,5 +90,16 @@ const { kounia, ...rest } = newUser
 
 // ...rest represents object with the rest of the properties : { surname: 'Gazi', age: 43 }
 
+
+
+// 6 - Tester l'existence et la valeur d'une propriété
+
+const monObj = {};
+monObj.a === undefined; // true
+
+const monObj2 = {a: 1};
+"a" in monObj; // true
+
+monObj.hasOwnProperty("a"); // true
 
 </script>
