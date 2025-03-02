@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTTP</title>
+    <title>Requete HTTP via utilisation de la web API XMLHTTPRequest</title>
 </head>
 <body>
     
@@ -11,7 +11,7 @@
 </html>
 <script>
 
-// 1 - Requete POST
+// 1 - Requete GET
 
 
 const requete = new XMLHttpRequest();
@@ -26,6 +26,10 @@ requete.addEventListener("load", load => console.log("Terminé"));
 requete.addEventListener("error", error => console.log("Erreur"));
 requete.addEventListener("abort", abort => console.log("Annulée", abort));
 
-// requete.abort()
+// requete.abort() // Ne necessite pas comme dans fetch() d'un objet AbortController
+
+// requete.timeout = 60000; // Définit un timeout
+
+// requete.upload // Permet de suivre le téléchargement d'un fichier
 
 </script>
