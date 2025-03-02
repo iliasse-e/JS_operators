@@ -11,21 +11,27 @@
 </html>
 <script>
 
-// 1 - Requete POST
+// 1 - THIS
 
+function a() {
+    console.log(this);
+}
 
-const requete = new XMLHttpRequest();
+const b = {
+    fn: a
+}
 
-requete.open("GET", "https://jsonplaceholder.typicode.com/users");
-requete.setRequestHeader('Content-Type', 'application/json');
+console.log(this); // this fera référence à l'objet Window
 
-requete.send();
+a() // this fera référence à l'objet Window
 
-requete.addEventListener("progress", ({target} = progress) => console.log(target));
-requete.addEventListener("load", load => console.log("Terminé"));
-requete.addEventListener("error", error => console.log("Erreur"));
-requete.addEventListener("abort", abort => console.log("Annulée", abort));
+b.fn() // this fera référence à l'objet b
 
-// requete.abort()
+function c(cb) {
+    cb();
+}
+
+c(b.fn)  // this fera référence à l'objet Window
+
 
 </script>
