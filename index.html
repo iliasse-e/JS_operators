@@ -90,4 +90,53 @@ arr1.splice(-1, 1) // -1 est le dernier élément du tableau
 const [, , ...copie] = arr4 // On délaisse ce qui nous intéresse pas
 
 
+// 10 - Trouver un élément dans le tableau
+
+.indexOf()
+.findIndex() // Prend une callback
+
+.lastIndexOf() // renvoie l'index du dernier élément trouvé
+.findLastIndex() // prend une callback
+
+.includes()
+
+.find()
+
+.findLast()
+
+
+// 11 - Copier tableau
+
+// Shallow copies
+
+const copiedArr = [...arr1]
+
+const copiedArr2 = arr1.slice()
+
+const copiedArr3 = Array.from(arr1)
+
+const copiedArr4 = [1, 2, 3, 4, 5].with(2, 6)
+
+// Deep copy
+const deepCopy = JSON.parse(JSON.stringify(arr1))
+
+
+// 12 - Fusionner
+
+.concat()
+
+const mergedArray = [...arr1, ...arr2]
+
+
+// 13 - Trier
+
+// .sort() pose problème avec majuscule, nombre, ... car se base sur string et table ASCI
+// Donc on utilise .localCompare()
+arr1.sort((a, b) => a.localeCompare(b, 'fr'));
+
+arr1.reverse(); // Inverse le tableau
+tableau.toReversed(); // Renvoie un tableau inversé
+
+
+
 </script>
