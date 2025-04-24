@@ -3,149 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Approfondissement des opérateurs de comparaisons et logiques</title>
+    <title>Promise</title>
 </head>
 <body>
     
 </body>
 </html>
+<h1 id="title">Les promesses</h1>
+
 <script>
 
-// Opérateurs / Conversion / Précédence
+const body = {name: 'promise', status: 'success'};
+const rejectBody = {name: 'promise', status: 'failure'};
 
-// {} + ' bonjour' = [object Object] bonjour
-
-// [] + [] = Empty string
-
-// undefined + ' yo' = undefined yo
-
-let x = 1;
-x = (x++, x); // renvoie 2
-
-2 > '3'; // false
-
-42 + ''; // 42
-true + false; // 1
-12 / '6'; // 126
-"a" + 15 + 3; // a153
-15 + 3 + "a"; // 18a
+/**
+ * 3 STATES : Pending / Fullfilled / Rejected
+ **/ 
 
 
-// La comparaison d'égalité faible
+// 1 - PENDING
+const pending = new Promise(() => {}); // Promise { <state>: "pending" }
 
-"1" == 1; // true
-"1" == true; // true
-null == undefined; // true
-0  == false; // true
-1 != '1'; // false
-1 == [1]; // true
-1 == [0]; // false
-"" == false; // true
-"" == 0; // true
-1,2 == [1, 2]; // true
+// 2 - FULLFILLED
+const fulfilled = Promise.resolve('x'); // Promise { <state>: "fulfilled", <value>: "x" }
 
-"2" == true; // true
-"test" == true; // true
-0 == null; // true
-0 == undefined; // true
-null == false; // true
-undefined == false; // true
-"test" == NaN; // false
+// 3 - REJECTED
+const rejected = Promise.reject('err x'); // Promise { <state>: "rejected", <reason>: "err x" }
+// Note : Si la promesse rejected n'est pas traité (caught), elle générera une erreur : Uncaught (in promise)
 
 
-// La comparaison d'égalité stricte
 
-undefined === undefined; // true
-null === null; // true
-true === true; // true
-false === false; // true
-'test' === 'test'; // true
-0 === 0; // true
-0 === false; // false
-"" === false; // false
-'1' === 1; // false
-1,2 === [1, 2]; // false
-
-// Les objets distincts ne sont jamais égaux :
-{a: 1} === {a: 1}; // false
-[1] === [1]; // false
-
-NaN === NaN; // false
+/**
+ * ECRITURES
+ **/ 
 
 
-// La comparaison relationnelle
+// 1 - FULLFILLED
 
-2 > 1; // true
-2 > null; // true
-0 > null; // false
-'4' > 3; // true
-2 >= 2; // true
-2 > false; // true
-true > 0; // true
-true > 2; // false
+Promise.resolve('value x');
+
+new Promise((resolve) => resolve('value x'));
 
 
-// Operateur logique 
+// 2 - REJECTED
 
-// &&
+Promise.reject('reason x');
 
-true && true; // true
-2 === 2 && 3 === 3; // true
-false && true; // false
-true && false; // false
+new Promise((resolve) => resolve('reason x'));
 
-'1' && '2'; // 1
 
-2 && 3; // 3
-[] && 4; // 4
 
-false && nimporteQuoi; // false
-undefined && nimporteQuoi; // false
-0 && nimporteQuoi; // false
-'' && nimporteQuoi; // false
-NaN && nimporteQuoi; // false
-null && nimporteQuoi; // false
+/**
+ * .THEN()
+ * .CATCH()
+ * .FINALLY()
+ **/
 
-// LE OU Logique ||
 
-true || true ; // true
-true || false ; // true
-false || true ; // true
-false || false ; // false
+// 1 - .THEN()
 
-"1" || nimporteQuoi; // '1'
-"21312" || nimporteQuoi; // '21312'
-[] || nimporteQuoi; // []
-{} || nimporteQuoi; // {}
-42 || nimporteQuoi; // 42
+Promise.resolve('value 1')
+.then(res => 'value 2')
+// On traite la valeur récupérée de la promesse,
+// puis un renvoie une nouvelle valeur qui sera renvoyé dans une nouvelle promesse
 
-false || 1; // 1
-undefined || 2; // 2
-0 || 3; // 3
-'' || 4; // 4
-NaN || 5; // 5
-null || 6; // 6
-null || null; // null
+// ** Chainage de promesse **
 
-// Le NON Logique !!
+Promise.resolve('value 1')
+.then(res => res + ' & value 2')
+.then(res => res + ' & value 3')
+.then(res => res + ' & value 4')
 
-!true; // false
-!false; // true
-!""; // true
-!"test"; // false
-!42; // false
 
-!!false; // false
-!!undefined; // false
-!!0; // false
-!!''; // false
-!!NaN; // false
-!!null; // false
+// 2 - .CATCH()
 
-// Précédence des opérateurs logiques
+Promise.reject('reason 1')
+.catch(err => {})
+// Sans .catch, on perd la récupération de l'erreur & elle générera une erreur : Uncaught (in promise)
 
-1 && 2 && 3; // 3
-1 && NaN && 3; // NaN
-!2 || 'test' && 42; // 42
+// ** Chainage de promesse **
 
-</script>
+// Les .catch ne s'enchaine pas, 
+// mais on peut renvoyer une promesse rejected dans un chainage de .then
+
+Promise.resolve('value 1')
+.then(res => res + ' & value 2')
+.then(res => Promise.reject('reason xxx')) // Le rejected nous renvoie directement dans le .catch()
+.then(res => res + ' & value 4')
+.catch(err => err + ' but we still continue') // Renvoie sur une nouvelle fulfilled, que l'on peut enchainer ...
+.then(res => {})
+
+
+/**
+ * 3 - .FINALLY()
+ **/
+
+Promise.reject('reason x').finally(() => {});
+Promise.resolve('value x').finally(() => {});
+// Un callback finally ne recevra pas d'argument car on ne peut pas savoir si la promesse a été tenue ou rompue
+
+
+/**
+ * GESTION DE L'ASYNCHRONE
+ **/ 
+
+
+// Simulation d'une requête HTTP
+
+const httpFakeRequest = new Promise((resolve, reject) => {
+    // Simule une réponse après 2 sec.
+    setTimeout(() => resolve('value x'), 2000)
+})
+
+const httpRandomFakeRequest = new Promise((resolve, reject) => {
+    // Simule une réponse après 2 sec.
+    setTimeout(() => {
+        // Renvoie une fulfilled ou rejected aléatoirement
+        if (Math.random() * 100 > 50) resolve('value x of httpRandomFakeRequest');
+        else reject('reason x of httpRandomFakeRequest');
+    }, 2000)
+})
+
+
+
+httpRandomFakeRequest
+.then(result => console.log('then : ', result))
+.then(result => Promise.reject('xx reason'))
+.catch(err => console.log('caught error : ', err))
+.finally(result => console.log('finally : ', result))
+
+
+/**
+ * ASYNC / AWAIT
+ **/
+
+// L'expression await interrompt l'exécution d'une fonction asynchrone et attend la résolution d'une promesse.
+// Lorsque la promesse est résolue (tenue ou rompue), la valeur est renvoyée et l'exécution de la fonction asynchrone reprend.
+// Si la valeur de l'expression n'est pas une promesse, elle est convertie en une promesse résolue ayant cette valeur.
+
+async function asyncFn() {
+    await "chaine de charactère qui sera convertie en promesse";
+    console.log("... suite");
+    // Si reject, il faut utiliser try catch pour traiter et ne pas faire bloquer le traitement
+}
+
+asyncFn()
+
+
+
+// // STATIC METHODS
+
+// /**
+//  * PROMISE.ALL()
+//  * @param Promise[]
+//  **/
+
+// Promise.all([p1, p2, p3])
+// .then(result => console.log(result))
+// .catch(err => console.log(err))
+
+// // Return promise when all promise resolved, and rank them in their order of declaration
+// // goes to .catch() if one of them rejected
+
+// /**
+//  * PROMISE.ALLSETTLED()
+//  * @param Promise[]
+//  **/
+
+// Promise.allSettled([p1, p2, rejectedPromise, p3])
+// .then(result => console.log(result))
+
+// // Return a promise with the following result structure :
+// // { status: "fulfilled", value: undefined } for resolved promises
+// // for rejected promises { status: "rejected", reason: undefined }
+
+// /**
+//  * PROMISE.ANY()
+//  * @param Promise[]
+//  **/
+
+//  // Returns promise with the first resolved value (doesn't care about reject)
+
+//  /**
+//  * PROMISE.RACE()
+//  * @param Promise[]
+//  **/
+
+//  // Returns promise with the first resolved or rejected value
+
+//   /**
+//  * PROMISE.TRY()
+//  **/
+
+//   /**
+//  * PROMISE.WITHRESOLVERS()
+//  **/
+
+//  const promiseWithResolvers = Promise.withResolvers();
+
+//  promiseWithResolvers.resolve()
+
+//  console.log(promiseWithResolvers);
+
+
+ 
+
+</script> 
