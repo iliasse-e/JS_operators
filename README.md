@@ -1,5 +1,6 @@
 [Utilisation des promesses](https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Using_promises)
 
+
 ### 1 - Etats d'une promesse
 
 Une Promise est dans un de ces états :
@@ -9,6 +10,7 @@ Une Promise est dans un de ces états :
     fulfilled (tenue) : l'opération a réussi.
 
     rejected (rompue) : l'opération a échoué.
+
 
 
 ### 2 - Construteur Promise
@@ -24,6 +26,7 @@ const promesse = new Promise((resolution, rejet) => {
   //   rejet("raison d'échec")  // échec
 });
 ```
+
 
 ### 3 - .then() & .catch()
 
@@ -48,13 +51,25 @@ maPromesse
   .catch(gestionnaireToutEchec);
 ```
 
-### X - Gestion du temps
+.then() permet de récupérer valeur d'une promesse.
+.catch() permet de récupérer la raison de l'échec.
+
+
+### 4 - .finally()
+
+Permet d'exécuter du code une fois que la promesse a été traitée, quel que soit le résultat. 
+On l'utiliser afin d'éviter de dupliquer du code entre les gestionnaires then() et catch().
+
+
+### X - Synchronisation
 
 Dans ce schéma, le log affichera : 1 puis 2
 
 ```
-console.log(Promise.resolve(2))
+console.log(Promise.resolve(2)) // Promesse synchrone
 console.log(1)
 ```
 
 ### X - fetch()
+
+### X - async & await

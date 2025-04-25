@@ -126,13 +126,6 @@ const httpRandomFakeRequest = new Promise((resolve, reject) => {
 
 
 
-httpRandomFakeRequest
-.then(result => console.log('then : ', result))
-.then(result => Promise.reject('xx reason'))
-.catch(err => console.log('caught error : ', err))
-.finally(result => console.log('finally : ', result))
-
-
 /**
  * ASYNC / AWAIT
  **/
@@ -142,12 +135,14 @@ httpRandomFakeRequest
 // Si la valeur de l'expression n'est pas une promesse, elle est convertie en une promesse résolue ayant cette valeur.
 
 async function asyncFn() {
-    await "chaine de charactère qui sera convertie en promesse";
-    console.log("... suite");
+    const res = await httpRandomFakeRequest;
+    // Cette ligne s'éxecute après le traitement du await;
+    return res;
     // Si reject, il faut utiliser try catch pour traiter et ne pas faire bloquer le traitement
 }
 
 asyncFn()
+.then(result => console.log('async : ', result))
 
 
 
@@ -191,11 +186,11 @@ asyncFn()
 
 //  // Returns promise with the first resolved or rejected value
 
-//   /**
+//  /**
 //  * PROMISE.TRY()
 //  **/
 
-//   /**
+//  /**
 //  * PROMISE.WITHRESOLVERS()
 //  **/
 
