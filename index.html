@@ -110,11 +110,6 @@ Promise.resolve('value x').finally(() => {});
 
 // Simulation d'une requête HTTP
 
-const httpFakeRequest = new Promise((resolve, reject) => {
-    // Simule une réponse après 2 sec.
-    setTimeout(() => resolve('value x'), 2000)
-})
-
 const httpRandomFakeRequest = new Promise((resolve, reject) => {
     // Simule une réponse après 2 sec.
     setTimeout(() => {
@@ -125,25 +120,25 @@ const httpRandomFakeRequest = new Promise((resolve, reject) => {
 })
 
 
-
 /**
  * ASYNC / AWAIT
  **/
 
-// L'expression await interrompt l'exécution d'une fonction asynchrone et attend la résolution d'une promesse.
-// Lorsque la promesse est résolue (tenue ou rompue), la valeur est renvoyée et l'exécution de la fonction asynchrone reprend.
-// Si la valeur de l'expression n'est pas une promesse, elle est convertie en une promesse résolue ayant cette valeur.
-
-async function asyncFn() {
-    const res = await httpRandomFakeRequest;
-    // Cette ligne s'éxecute après le traitement du await;
-    return res;
-    // Si reject, il faut utiliser try catch pour traiter et ne pas faire bloquer le traitement
+async function asyncFnReturnsPromiseAnyway() {
+    return 'bonjour'; // S'encapsulera dans une promesse
 }
 
-asyncFn()
-.then(result => console.log('async : ', result))
-
+async function asyncFn() {
+    try {
+        const res = await httpRandomFakeRequest;
+        // Cette ligne s'éxecute après le traitement du await;
+        return res;
+    } 
+    
+    catch (error) {
+        throw error;
+    }
+}
 
 
 // // STATIC METHODS

@@ -61,15 +61,51 @@ Permet d'exécuter du code une fois que la promesse a été traitée, quel que s
 On l'utiliser afin d'éviter de dupliquer du code entre les gestionnaires then() et catch().
 
 
-### X - Synchronisation
+### 5 - Synchronisation
 
 Dans ce schéma, le log affichera : 1 puis 2
 
 ```
 console.log(Promise.resolve(2)) // Promesse synchrone
+
 console.log(1)
 ```
 
-### X - fetch()
+### 6 - async & await
 
-### X - async & await
+L'expression await interrompt l'exécution d'une fonction asynchrone et attend la résolution d'une promesse.
+
+Lorsque la promesse est résolue (tenue ou rompue), la valeur est renvoyée et l'exécution de la fonction asynchrone reprend.
+
+Si la valeur de l'expression n'est pas une promesse, elle est convertie en une promesse résolue ayant cette valeur.
+
+S'utilise dans une fonction async
+
+```
+async function asyncFunc() {
+  let res = await httpReq();
+  // Poursuite de l'execution
+}
+```
+
+Une fonction async retourne toujours une promesse
+
+```
+async function asyncFunc() {
+  return 'chaine de charactère traduit en promesse';
+}
+```
+
+Gestion des erreurs (via trycatch)
+
+```
+async function asyncFunc() {
+  try {
+    let res = await httpReq();
+    // suite de l'execution
+  }
+  catch(e) {
+    throw e;
+  }
+}
+```
