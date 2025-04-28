@@ -109,3 +109,24 @@ async function asyncFunc() {
   }
 }
 ```
+
+### 7 - Methodes statiques
+
+#### Promise.all()
+
+Renvoie une promesse (Promise) qui est résolue lorsque l'ensemble des promesses contenues dans l'itérable passé en argument ont été résolues ou qui échoue avec la raison de la première promesse qui échoue au sein de l'itérable.
+
+Prend en argument un tableau de promesses.
+
+```
+Promise.all([
+  Promise.resolve(3),
+  42,
+  new Promise((resolve, reject) => {
+    setTimeout(resolve, 100, "foo");
+  });
+  ]).then((values) => {
+  console.log(values);
+});
+// Expected output: Array [3, 42, "foo"]
+```

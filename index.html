@@ -140,20 +140,27 @@ async function asyncFn() {
     }
 }
 
+asyncFnReturnsPromiseAnyway()
+.then(res => console.log('RESPONSE VALUE : ' + res))
+.catch(err => console.log('ERROR REASON : ' + err))
 
-// // STATIC METHODS
 
-// /**
-//  * PROMISE.ALL()
-//  * @param Promise[]
-//  **/
+// STATIC METHODS
 
-// Promise.all([p1, p2, p3])
-// .then(result => console.log(result))
-// .catch(err => console.log(err))
+/**
+ * PROMISE.ALL()
+ * @param Promise[]
+ **/
 
-// // Return promise when all promise resolved, and rank them in their order of declaration
-// // goes to .catch() if one of them rejected
+Promise.all([
+    (async () => 'good evening')(),
+    new Promise((resolve) => setTimeout(() => resolve('value x²'), 2000))
+])
+.then(result => console.log(result))
+.catch(err => console.log(err))
+
+// Return promise when all promise resolved, and rank them in their order of declaration
+// goes to .catch() if one of them rejected
 
 // /**
 //  * PROMISE.ALLSETTLED()
