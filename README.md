@@ -1,3 +1,3 @@
-Exploring the bases of Javascript langage and frontend features (WEB APIs)
+Exploring Javascript langage and frontend features (WEB APIs)
 
 Each branch represents one theme as : DOM, Promises, Types, Operators, Asynchronous Events, Objects, fetch API, ...
