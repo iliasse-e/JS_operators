@@ -118,6 +118,10 @@ Renvoie une promesse (Promise) qui est résolue lorsque l'ensemble des promesses
 
 Prend en argument un tableau de promesses.
 
+
+
+En cas de résolution (toutes les promesses tenues) :
+
 ```
 Promise.all([
   Promise.resolve(3),
@@ -129,4 +133,69 @@ Promise.all([
   console.log(values);
 });
 // Expected output: Array [3, 42, "foo"]
+```
+
+En cas d'échec (une promesse est rompue) :
+
+```
+Promise.all([
+  Promise.resolve(3),
+  42,
+  new Promise((resolve, reject) => {
+    setTimeout(reject, 100, "reject");
+  });
+  ]).then((values) => {
+  console.log(values);
+});
+// Expected output: "reject"
+```
+
+### Promise.allSettled()
+
+La méthode Promise.allSettled() renvoie une promesse qui est résolue une fois que l'ensemble des promesses de l'itérable passée en argument sont réussies ou rejetées. La valeur de résolution de cette promesse est un tableau d'objets dont chacun est le résultat de chaque promesse de l'itérable.
+
+On ne va pas dans le .catch()
+
+Retour :
+
+```
+// Tableau d'objets de cette structure :
+
+[
+  { status: "fulfilled", value: "valeur de la promesse" },
+  { status: "rejected", reason: "error reason" }
+]
+```
+
+
+### Promise.any()
+
+La méthode Promise.any() prend comme argument un itérable contenant des objets Promise et, dès qu'une des promesses de cet itérable est tenue, renvoie une unique promesse résolue avec la valeur de la promesse résolue. Si aucune promesse de l'itérable n'est tenue (c'est-à-dire si toutes les promesses sont rejetées), la promesse renvoyée est rompue avec un objet AggregateError (une nouvelle sous-classe de Error qui regroupe un ensemble d'erreurs). Cette méthode fait essentiellement le contraire de Promise.all() (qui renvoie une promesse tenue uniquement si toutes les promesses de l'itérable passé en argument ont été tenues).
+
+
+### Promise.race()
+
+La méthode Promise.race() renvoie une promesse qui est résolue ou rejetée dès qu'une des promesses de l'itérable passé en argument est résolue ou rejetée. La valeur (dans le cas de la résolution) ou la raison (dans le cas d'un échec) utilisée est celle de la promesse de l'itérable qui est resolue/qui échoue.
+
+### Promise.try()
+
+Promise.try() prend une callback of any kind (returns or throws, synchronously or asynchronously) et encapsule le résultat dans une promesse.
+
+```
+Promise.try(() => 'value');
+
+Promise.try(() => { throw Error() });
+```
+
+### Promise.withResolvers()
+
+Promise.withResolvers() retourne un objet contenant une nouvelle promesse et deux function pour tenir ou rejeter la promesse, correspondant aux deux paramètres de l'executeur de la Promise() constructor.
+
+
+```
+ const promiseWithResolvers = Promise.withResolvers();
+
+ // { promise: Promise { "pending" }, resolve: (), reject: () }
+
+
 ```
