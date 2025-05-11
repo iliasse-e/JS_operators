@@ -15,20 +15,20 @@ En JavaScript, les tableaux ne sont pas des primitives, mais des Array objects a
 
 ### Méthodes statiques
 
-#### Array.from()
+#### `Array.from()`
 
 Cette méthode permet de créer une nouvelle instance d'Array à partir d'un objet semblable à un tableau ou d'un itérable.
 
-#### Array.isArray()
+#### `Array.isArray()`
 
 Cette méthode renvoie true si la variable est un tableau, false sinon.
 
-#### Array.of()
+#### `Array.of()`
 
 Cette méthode permet de créer une nouvelle instance d'Array à partir d'un nombre variable d'arguments (peu importe la quantité ou le type des arguments utilisés).
 
 #
-### Ajout : .push() & unshift()
+### Ajout : `.push()` & `unshift()`
 
 La méthode `push()` ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle taille du tableau.
 
@@ -41,13 +41,13 @@ arr1.splice(0, 0, "Bonjour")
 ```
 
 #
-### Suppression : .pop() & .shift()
+### Suppression : `.pop()` & `.shift()`
 
 La méthode `pop()` supprime le dernier élément d'un tableau et retourne cet élément. Cette méthode modifie la longueur du tableau.
 
 La méthode `shift()` permet de retirer le premier élément d'un tableau et de renvoyer cet élément. Cette méthode modifie la longueur du tableau.
 
-#### Autre manière de supprimer : .splice() et spread operator
+#### Autre manière de supprimer : `.splice()` et spread operator
 
 ```javascript
 arr1.splice(-1, 1) // -1 est le dernier élément du tableau
@@ -55,7 +55,7 @@ arr1.splice(-1, 1) // -1 est le dernier élément du tableau
 const [, , ...copie] = arr1 // On délaisse ce qui nous intéresse pas
 ```
 
-#### .splice()
+#### `.splice()`
 
 La méthode `splice()` modifie le contenu d'un tableau en retirant des éléments et/ou en ajoutant de nouveaux éléments à même le tableau.On peut ainsi vider ou remplacer une partie d'un tableau.
 
@@ -75,7 +75,7 @@ months.splice(4, 1, "May");
 `Troisième param` : Valeur à ajouter
 
 #
-### .slice()
+### `.slice()`
 
 La méthode `slice()` renvoie un objet tableau, contenant une copie superficielle (shallow copy) d'une portion du tableau d'origine, la portion est définie par un indice de début et un indice de fin (exclus). Le tableau original ne sera pas modifié.
 
@@ -88,7 +88,7 @@ arr.slice(début, fin);
 #
 ### Méthodes renvoyant un Array iterator
 
-#### .keys(), .values() & .entries()
+#### `.keys()`, `.values()` & `.entries()`
 Chacune des méthodes renvoie un Array Iterator
 
 ```javascript
@@ -128,7 +128,7 @@ arr1.includes('bonjour')
 #
 ### Fusion
 
-#### .join()
+#### `.join()`
 Crée et renvoie une nouvelle chaîne de caractères en concaténant tous les éléments d'un tableau
 
 ```javascript
@@ -137,7 +137,7 @@ Crée et renvoie une nouvelle chaîne de caractères en concaténant tous les é
 ['b', 'g'].join("-") // "b-g"
 ```
 
-#### .concat()
+#### `.concat()`
 Renvoie la fusion deux ou plusieurs tableaux en les concaténant
 
 ```javascript
@@ -153,7 +153,7 @@ Renvoie la fusion deux ou plusieurs tableaux en les concaténant
 #
 ### Tri
 
-#### .sort()
+#### `.sort()`
 
 ```javascript
 // Pour des chiffres
@@ -164,7 +164,7 @@ Renvoie la fusion deux ou plusieurs tableaux en les concaténant
 ["c", "f", "b"].sort((a, b) => a.localeCompare(b))
 ```
 
-#### .reverse() & .toReversed()
+#### `.reverse()` & `.toReversed()`
 
 La méthode `reverse()` inverse le tableau & `toReversed()` renvoie un tableau inversé
 
@@ -172,7 +172,7 @@ La méthode `reverse()` inverse le tableau & `toReversed()` renvoie un tableau i
 #
 ### Fonctionnelle
 
-#### .every() & .some()
+#### `.every()` & `.some()`
 Permetent de vérifier une condition donnée par une fonction en argument.
 
 ```javascript
@@ -181,12 +181,12 @@ Permetent de vérifier une condition donnée par une fonction en argument.
 [1, 2, 33].some(nb => nb < 4) // au moins un
 ```
 
-#### .map()
+#### `.map()`
 Crée un nouveau tableau avec les résultats de l'appel d'une fonction fournie sur chaque élément du tableau appelant.
 
-#### .forEach()
+#### `.forEach()`
 
-#### .reduce()
+#### `.reduce()`
 Applique une fonction qui est un « accumulateur » et qui traite chaque valeur d'une liste (de la gauche vers la droite) afin de la réduire à une seule valeur.
 
 ```javascript
