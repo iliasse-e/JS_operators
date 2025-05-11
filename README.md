@@ -15,15 +15,17 @@ En JavaScript, les tableaux ne sont pas des primitives, mais des Array objects a
 
 ### Méthodes statiques
 
-Array.from()
+#### Array.from()
 
-    Cette méthode permet de créer une nouvelle instance d'Array à partir d'un objet semblable à un tableau ou d'un itérable.
-Array.isArray()
+Cette méthode permet de créer une nouvelle instance d'Array à partir d'un objet semblable à un tableau ou d'un itérable.
 
-    Cette méthode renvoie true si la variable est un tableau, false sinon.
-Array.of()
+#### Array.isArray()
 
-    Cette méthode permet de créer une nouvelle instance d'Array à partir d'un nombre variable d'arguments (peu importe la quantité ou le type des arguments utilisés).
+Cette méthode renvoie true si la variable est un tableau, false sinon.
+
+#### Array.of()
+
+Cette méthode permet de créer une nouvelle instance d'Array à partir d'un nombre variable d'arguments (peu importe la quantité ou le type des arguments utilisés).
 
 #
 ### Ajout : .push() & unshift()
@@ -66,11 +68,11 @@ months.splice(4, 1, "May");
 // Replaces 1 element at index 4
 ```
 
-Premier param : L'indice à partir duquel commencer à changer le tableau
+`Premier param` : L'indice à partir duquel commencer à changer le tableau
 
-Second param : Un entier indiquant le nombre d'anciens éléments à remplacer, si 0, rien n'est supprimé
+`Second param` : Un entier indiquant le nombre d'anciens éléments à remplacer, si 0, rien n'est supprimé
 
-Troisième param : Valeur à ajouter
+`Troisième param` : Valeur à ajouter
 
 #
 ### .slice()
@@ -164,14 +166,14 @@ Renvoie la fusion deux ou plusieurs tableaux en les concaténant
 
 #### .reverse() & .toReversed()
 
-La méthodes `reverse()` inverse le tableau & `toReversed()` renvoie un tableau inversé
+La méthode `reverse()` inverse le tableau & `toReversed()` renvoie un tableau inversé
 
 
 #
 ### Fonctionnelle
 
 #### .every() & .some()
-permetent de vérifier une condition donnée par une fonction en argument.
+Permetent de vérifier une condition donnée par une fonction en argument.
 
 ```javascript
 [1, 2, 33].every(nb => nb < 40) // tous doivent respecter la condition
