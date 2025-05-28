@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau</title>
+    <title>Fonctions</title>
 </head>
 <body>
     
@@ -11,163 +11,29 @@
 </html>
 <script>
 
-// 1 - Declaration
+// 1 - this & contexte d'execution
 
-const arr1 = [1, {}, function(){}, [1, 2]];
+function f1() {
+    console.log(this); // Window
+}
 
-const arr2 = Array(1, 2, 3);
+obj = {
+    a: function f2() {console.log(this)}, // Object
+    b: () => console.log(this) // Window
+}
 
-const arr3 = new Array(1, 3);
+f1();
+obj.a();
+obj.b();
 
-const arr4 = Array.from("bonjour") // Array(7) [ "b", "o", "n", "j", "o", "u", "r" ]
 
-const arr5 = Array.from([1, 2, 3], nb => nb + nb) // Array(3) [ 2, 4, 6 ]
+// 2 - Rest operator
 
-const arr6 = Array.of("foo", 2, "bar", true);
+function trier(...nombres) {
+    console.log(nombres, arguments);
+}
 
-
-// 2 - Comparaison de type
-
-typeof arr1 === "array" // false, elle est de type "object"
-
-Array.isArray(arr1) // true
-
-
-// 3 - Array.fromAsync()
-
-Array.fromAsync([Promise.resolve(1), Promise.resolve(2), Promise.resolve(3)])
-.then((array) => console.log(array));
-
-
-// 4 - Accéder à une propriété
-
-arr1[1]
-
-arr1.at(1) // ou bien -1 si l'on veut accéder à la dernière propriété du tableau
-
-
-// 5  Tableau imbriqué
-
-const twoDimensionArray = [[1, 2], [3, 4]]
-
-console.log(twoDimensionArray[0][0], twoDimensionArray.at(1).at(1));
-
-
-// 6 - Décomposition d'un tableau
-
-const arr7 = ["a", "b", "c"]
-
-let [a, ...chars] = arr7; // a = "a" & chars = ["b", "c"]
-
-const [, b] = arr1 // On saute le premier élément
-
-
-// 7 - Inverser deux valeurs
-
-let x = "x";
-let z = "z";
-
-[x, z] = [z, x] // x = "z" & z = "x"
-
-
-// 8 - Ajouter élément dans tableau
-
-Array().push() // Ajoute à la fin
-Array().unshift() // Ajoute au début
-
-arr = [...arr1, 6] // On réassigne le même tableau via le spread operator + la nouvelle valeur
-
-arr1.splice(0, 0, "Bonjour") // 1er param l'index, 2e param le nombre d'élément à delete, 3e param la valeur
-
-
-// 9 - Supprimer élément dans tableau
-
-Array().pop() // Supprime à la fin
-Array().shift() // Supprime au début
-
-arr1.splice(-1, 1) // -1 est le dernier élément du tableau
-
-const [, , ...copie] = arr4 // On délaisse ce qui nous intéresse pas
-
-
-// 10 - Trouver un élément dans le tableau
-
-arr.indexOf(1)
-arr.findIndex(a => typeof a == "function") // Prend une callback
-
-arr.lastIndexOf(1) // renvoie l'index du dernier élément trouvé
-arr.findLastIndex(a => typeof a == "function") // prend une callback
-
-arr.includes()
-
-arr1.find(a => typeof a == "function")
-
-arr.findLast(a => typeof a == "function")
-
-
-// 11 - Copier tableau
-
-// Shallow copies
-
-const copiedArr = [...arr1]
-
-const copiedArr2 = arr1.slice()
-
-const copiedArr3 = Array.from(arr1)
-
-const copiedArr4 = [1, 2, 3, 4, 5].with(2, 6)
-
-// Deep copy
-const deepCopy = JSON.parse(JSON.stringify(arr1))
-
-
-// 12 - Fusionner
-
-const mergedArray1 = arr.concat(arr1)
-
-const mergedArray = [...arr1, ...arr2]
-
-
-// 13 - Trier
-
-// .sort() pose problème avec majuscule, nombre, ... car se base sur string et table ASCI
-// Donc on utilise .localCompare()
-arr4.sort((a, b) => a.localeCompare(b));
-
-arr1.reverse(); // Inverse le tableau
-arr.toReversed(); // Renvoie un tableau inversé
-
-
-// 14 - Méthodes de tableau
-// Map, filter, ...
-
-const arr8 = [
-    {name: 'Tajine beldi', quantity: 1, price: 90},
-    {name: 'ceramique de table Fes', quantity: 5, price: 20},
-    {name: 'Assiète Fes', quantity: 2, price: 70},
-    {name: 'Chaise bois et cuir najarin', quantity: 2, price: 200}
-]
-
-const total = arr8.reduce((acc, value) => {
-    acc += value.price * value.quantity
-    return acc
-}, 0)
-
-console.log("total ", total);
-
-// reduceRight() pareil sauf que les itérations se font de la fin vers le début du tableau. 
-
-// flat() & flatMap()
-const tableau = [1, 2, [3, 4], [[5], [6,7]]];
-console.log(tableau.flat()); // [1, 2, 3, 4, [5], [6, 7]]
-console.log(tableau.flat(2)); // [1, 2, 3, 4, 5, 6, 7]
-
-const test = [1, 3, 5].flatMap(el => [el, el + 1]);
-console.log(test); // [1, 2, 3, 4, 5, 6]
-
-// every() & some()
-console.log([1, 2, "3"].some(el => typeof el === "string")); // true
-console.log([1, 2, "3"].every(el => typeof el === "number")); // false
+trier(1) // [1] {0: 1}
 
 
 </script>
