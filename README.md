@@ -18,7 +18,7 @@ Une Promise est dans un de ces états :
 Prend un argument une fonction executor.
 Celle est composée de deux paramètres qui sont des fonctions, que l'on peut appeller à la résolution ou à l'échec.
 
-```
+```javascript
 const promesse = new Promise((resolution, rejet) => {
   //
   //   resolution(uneValeur)    // réussite
@@ -34,7 +34,7 @@ Les méthodes .then() et .catch() renvoient des promesses et peuvent ainsi être
 
 La méthode .then() prend deux arguments : le premier est une fonction de rappel (callback) pour le cas de résolution de la promesse et le second argument est une fonction de rappel pour le cas d'échec.
 
-```
+```javascript
 maPromesse
   .then(gestionnaireSuccesA, gestionnaireEchecA)
   .then(gestionnaireSuccesB, gestionnaireEchecB)
@@ -43,7 +43,7 @@ maPromesse
 
 Généralement mieux vaut laisser la gestion de l'erreur jusq'au .catch() final. Un appel à .catch() peut être vu comme un .then() qui n'a qu'une fonction de rappel pour gérer les cas d'échec.
 
-```
+```javascript
 maPromesse
   .then(gestionnaireSuccesA)
   .then(gestionnaireSuccesB)
@@ -65,7 +65,7 @@ On l'utiliser afin d'éviter de dupliquer du code entre les gestionnaires then()
 
 Dans ce schéma, le log affichera : 1 puis 2
 
-```
+```javascript
 console.log(Promise.resolve(2)) // Promesse synchrone
 
 console.log(1)
@@ -81,7 +81,7 @@ Si la valeur de l'expression n'est pas une promesse, elle est convertie en une p
 
 S'utilise dans une fonction async
 
-```
+```javascript
 async function asyncFunc() {
   let res = await httpReq();
   // Poursuite de l'execution
@@ -90,7 +90,7 @@ async function asyncFunc() {
 
 Une fonction async retourne toujours une promesse
 
-```
+```javascript
 async function asyncFunc() {
   return 'chaine de charactère traduit en promesse';
 }
@@ -98,7 +98,7 @@ async function asyncFunc() {
 
 Gestion des erreurs (via trycatch)
 
-```
+```javascript
 async function asyncFunc() {
   try {
     let res = await httpReq();
@@ -122,7 +122,7 @@ Prend en argument un tableau de promesses.
 
 En cas de résolution (toutes les promesses tenues) :
 
-```
+```javascript
 Promise.all([
   Promise.resolve(3),
   42,
@@ -137,7 +137,7 @@ Promise.all([
 
 En cas d'échec (une promesse est rompue) :
 
-```
+```javascript
 Promise.all([
   Promise.resolve(3),
   42,
@@ -158,7 +158,7 @@ On ne va pas dans le .catch()
 
 Retour :
 
-```
+```javascript
 // Tableau d'objets de cette structure :
 
 [
@@ -181,7 +181,7 @@ La méthode Promise.race() renvoie une promesse qui est résolue ou rejetée dè
 
 Promise.try() prend une callback of any kind (returns or throws, synchronously or asynchronously) et encapsule le résultat dans une promesse.
 
-```
+```javascript
 Promise.try(() => 'value');
 
 Promise.try(() => { throw Error() });
@@ -192,7 +192,7 @@ Promise.try(() => { throw Error() });
 Promise.withResolvers() retourne un objet contenant une nouvelle promesse et deux function pour tenir ou rejeter la promesse, correspondant aux deux paramètres de l'executeur de la Promise() constructor.
 
 
-```
+```javascript
  const promiseWithResolvers = Promise.withResolvers();
 
  // { promise: Promise { "pending" }, resolve: (), reject: () }
