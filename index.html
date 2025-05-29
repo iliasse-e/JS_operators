@@ -36,4 +36,32 @@ function trier(...nombres) {
 trier(1) // [1] {0: 1}
 
 
+// 3 - Portée et environnement lexical
+
+let foo = 2;
+function b() {
+  let foo = 1;
+  function a() {
+    console.log(foo);
+  }
+  a();
+}
+b(); // 1
+
+"use strict";
+
+const objet = {
+  maMethode() {
+    console.log(this);
+  }
+};
+
+function a(fonction) {
+  fonction();
+}
+
+a(objet.maMethode); // true
+
+
+
 </script>
